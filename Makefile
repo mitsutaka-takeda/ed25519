@@ -1,6 +1,6 @@
 LIBDIR := lib
 
-all: $(LIBDIR) $(LIBDIR)/libed25519.a
+all: $(LIBDIR) $(LIBDIR)/libed25519.a $(LIBDIR)/libed25519.so 
 
 CC := gcc
 CFLAGS := -O2 -pipe
@@ -20,6 +20,9 @@ OBJS = $(SRCS:.c=.o)
 $(LIBDIR)/libed25519.a: $(OBJS)
 	ls $(OBJS)
 	ar rcs $@ $^
+
+$(LIBDIR)/libed25519.so: $(OBJS)
+	$(CC) -shared $(OBJS) -o $@
 
 .PHONY: test
 test: $(LIB)
