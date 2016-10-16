@@ -3,7 +3,7 @@ LIBDIR := lib
 all: $(LIBDIR) $(LIBDIR)/libed25519.a $(LIBDIR)/libed25519.so 
 
 CC := gcc
-CFLAGS := -O2 -pipe
+CFLAGS := -fPIC -O2 -pipe
 CFLAGS += -Wall -pedantic
 LDFLAGS += -Led25519
 LIBDIR := lib
@@ -22,11 +22,11 @@ $(LIBDIR)/libed25519.a: $(OBJS)
 	ar rcs $@ $^
 
 $(LIBDIR)/libed25519.so: $(OBJS)
-	$(CC) -shared $(OBJS) -o $@
+	$(CC) $(CFLAGS) -shared $(OBJS) -o $@
 
 .PHONY: test
 test: $(LIB)
-	$(CC) -o $@ test.c $(LDFLAGS) -L$(LIBDIR) -led25519
+	$(CC) $(CFLAGS) -o $@ test.c $(LDFLAGS) -L$(LIBDIR) -led25519
 
 .PHONY: clean
 clean:
