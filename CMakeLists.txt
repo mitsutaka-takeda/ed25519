@@ -5,6 +5,7 @@ enable_testing()
 
 add_library(
   ed25519
+  SHARED
   src/add_scalar.c
   src/ed25519.h
   src/fe.c
@@ -28,7 +29,6 @@ add_library(ed25519::ed25519 ALIAS ed25519)
 
 target_compile_options(ed25519
   PUBLIC
-  -fPIC
   -pipe
   )
 
